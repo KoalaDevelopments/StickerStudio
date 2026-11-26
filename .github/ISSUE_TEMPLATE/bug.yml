@@ -1,0 +1,34 @@
+name: Bug
+description: Something in the app is broken or a pack is rejected by WhatsApp
+labels: [bug]
+projects: [KoalaDevelopments/2]
+body:
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options: [iOS, Android, Both]
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: Steps to reproduce, the pack type (static or animated) and a screenshot or screen recording if visual.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: App version / commit, device and OS version
+  - type: input
+    id: whatsapp
+    attributes:
+      label: WhatsApp version
+      description: Only when the bug is in adding or updating a pack in WhatsApp.
