@@ -9,6 +9,7 @@ struct DesignSystemGallery: View {
     @State private var toast: String?
     @State private var dialog = false
     @State private var sheet = false
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         ScrollView {
@@ -24,7 +25,9 @@ struct DesignSystemGallery: View {
             .padding(KODevSpace.space4)
         }
         .background(KODevColors.bg)
-        .kodevAppBar(KODevAppBar("KODevUI", actions: {
+        .kodevAppBar(KODevAppBar("KODevUI", leading: {
+            KODevIconButton(KODevIcons.arrowLeft, label: "Voltar") { dismiss() }
+        }, actions: {
             KODevIconButton(KODevIcons.more, label: dark ? "Tema claro" : "Tema escuro") { dark.toggle() }
         }))
         .kodevToast($toast)

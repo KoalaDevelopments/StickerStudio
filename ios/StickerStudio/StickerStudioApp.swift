@@ -1,17 +1,33 @@
 import KODevUI
-import StickerDomain
 import SwiftUI
 
 @main
 struct StickerStudioApp: App {
+    // ponytail: in-memory sample packs until the core persistence (#3) lands.
+    private let repository: PackRepository = InMemoryPackRepository.sample
+    @State private var path: [Route] = []
+
+    enum Route: Hashable { case gallery }
+
     var body: some Scene {
         WindowGroup {
-            // Temporary root while the MVP screens are built: the Design
-            // System gallery, to review the KODevUI layer on a device.
-            NavigationStack {
-                DesignSystemGallery()
+            NavigationStack(path: $path) {
+                PackListView(repository: repository, onOpenGallery: galleryAction)
+                    .navigationDestination(for: Route.self) { route in
+                        switch route {
+                        case .gallery: DesignSystemGallery()
+                        }
+                    }
             }
             .kodevTheme()
         }
+    }
+
+    private var galleryAction: (() -> Void)? {
+        #if DEBUG
+        { path.append(.gallery) }
+        #else
+        nil
+        #endif
     }
 }
