@@ -19,11 +19,20 @@ import androidx.compose.ui.unit.dp
  */
 @Composable
 fun KODevIcon(rows: List<String>, modifier: Modifier = Modifier, tint: Color = LocalContentColor.current, label: String? = null) {
-    Canvas(modifier.size(24.dp).then(if (label != null) Modifier.semantics { contentDescription = label } else Modifier)) {
-        val px = size.width / 12
+    KODevPixelArt(rows, tint, modifier.size(24.dp).then(if (label != null) Modifier.semantics { contentDescription = label } else Modifier))
+}
+
+/** Pixel-art rows (a `#` per pixel) drawn at 2dp per pixel, centered in the space it gets. */
+@Composable
+internal fun KODevPixelArt(rows: List<String>, tint: Color, modifier: Modifier) {
+    Canvas(modifier) {
+        val px = 2.dp.toPx()
+        val columns = rows.maxOf { it.length }
+        val left = (size.width - columns * px) / 2
+        val top = (size.height - rows.size * px) / 2
         for ((y, row) in rows.withIndex()) {
             for ((x, char) in row.withIndex()) {
-                if (char == '#') drawRect(tint, Offset(px / 2 + x * px, px / 2 + y * px), Size(px, px))
+                if (char == '#') drawRect(tint, Offset(left + x * px, top + y * px), Size(px, px))
             }
         }
     }

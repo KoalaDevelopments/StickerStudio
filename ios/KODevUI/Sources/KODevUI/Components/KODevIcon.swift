@@ -14,18 +14,30 @@ public struct KODevIcon: View {
     }
 
     public var body: some View {
-        Canvas { context, _ in
+        KODevPixelArt(rows: rows)
+            .frame(width: 24, height: 24)
+            .accessibilityHidden(label == nil)
+            .accessibilityLabel(label ?? "")
+    }
+}
+
+/// Pixel-art rows (a `#` per pixel) drawn at 2pt per pixel in the current
+/// foreground color, centered in the frame it gets.
+struct KODevPixelArt: View {
+    let rows: [String]
+
+    var body: some View {
+        let columns = rows.map(\.count).max() ?? 0
+        Canvas { context, size in
+            let origin = CGPoint(x: (size.width - CGFloat(columns * 2)) / 2, y: (size.height - CGFloat(rows.count * 2)) / 2)
             var path = Path()
             for (y, row) in rows.enumerated() {
                 for (x, char) in row.enumerated() where char == "#" {
-                    path.addRect(CGRect(x: 1 + x * 2, y: 1 + y * 2, width: 2, height: 2))
+                    path.addRect(CGRect(x: origin.x + CGFloat(x * 2), y: origin.y + CGFloat(y * 2), width: 2, height: 2))
                 }
             }
             context.fill(path, with: .foreground)
         }
-        .frame(width: 24, height: 24)
-        .accessibilityHidden(label == nil)
-        .accessibilityLabel(label ?? "")
     }
 }
 

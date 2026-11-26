@@ -36,6 +36,8 @@ public struct KODevTextField: View {
                 .frame(minHeight: 48)
                 .background(isEnabled ? Color.clear : KODevColors.bgRaised)
                 .overlay { if isEnabled { Rectangle().strokeBorder(frame, lineWidth: 2) } }
+                .contentShape(Rectangle())
+                .onTapGesture { focused = true }
                 .accessibilityHint(error ?? hint ?? "")
             if let message = error ?? hint {
                 Text(message)
