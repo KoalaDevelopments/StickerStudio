@@ -1,0 +1,22 @@
+name: iOS
+
+on:
+  push:
+    branches: [main]
+    paths: [ios/**, .github/workflows/ios.yml]
+  pull_request:
+    paths: [ios/**, .github/workflows/ios.yml]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: swift test
+        working-directory: ios/StickerKit
+      - run: >
+          xcodebuild build
+          -project ios/StickerStudio.xcodeproj
+          -scheme StickerStudio
+          -destination 'generic/platform=iOS Simulator'
+          CODE_SIGNING_ALLOWED=NO
