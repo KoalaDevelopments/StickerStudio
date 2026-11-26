@@ -18,7 +18,10 @@ import androidx.compose.ui.Modifier
 import com.koaladevelopments.kodevui.KODevTheme
 import com.koaladevelopments.stickerstudio.debug.DesignSystemGallery
 import com.koaladevelopments.stickerstudio.packs.InMemoryPackRepository
+import com.koaladevelopments.stickerstudio.packs.PackFormScreen
 import com.koaladevelopments.stickerstudio.packs.PackListScreen
+
+private enum class Screen { Packs, CreatePack, Gallery }
 
 class MainActivity : ComponentActivity() {
     // ponytail: in-memory sample packs until the core persistence (#3) lands.
@@ -30,19 +33,21 @@ class MainActivity : ComponentActivity() {
         setContent {
             val systemDark = isSystemInDarkTheme()
             var dark by rememberSaveable { mutableStateOf(systemDark) }
-            var gallery by rememberSaveable { mutableStateOf(false) }
+            var screen by rememberSaveable { mutableStateOf(Screen.Packs) }
             KODevTheme(darkTheme = dark) {
                 Box(Modifier.fillMaxSize().background(KODevTheme.colors.bg).safeDrawingPadding()) {
-                    if (gallery) {
-                        BackHandler { gallery = false }
-                        DesignSystemGallery(dark = dark, onToggleTheme = { dark = !dark }, onBack = { gallery = false })
-                    } else {
-                        PackListScreen(
+                    // ponytail: screen enum until the editor flow needs a back stack.
+                    val back = { screen = Screen.Packs }
+                    if (screen != Screen.Packs) BackHandler(onBack = back)
+                    when (screen) {
+                        Screen.Packs -> PackListScreen(
                             repository = repository,
-                            onCreate = {},
+                            onCreate = { screen = Screen.CreatePack },
                             onOpen = {},
-                            onOpenGallery = if (BuildConfig.DEBUG) ({ gallery = true }) else null,
+                            onOpenGallery = if (BuildConfig.DEBUG) ({ screen = Screen.Gallery }) else null,
                         )
+                        Screen.CreatePack -> PackFormScreen(repository, pack = null, onDone = back)
+                        Screen.Gallery -> DesignSystemGallery(dark = dark, onToggleTheme = { dark = !dark }, onBack = back)
                     }
                 }
             }

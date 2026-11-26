@@ -50,7 +50,7 @@ struct PackListView: View {
                     .disabled(packs.count >= maxPacks)
             }
         }))
-        .task { packs = await repository.packs() }
+        .onAppear { Task { packs = await repository.packs() } }
     }
 
     private var emptyState: some View {

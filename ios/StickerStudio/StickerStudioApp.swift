@@ -7,15 +7,16 @@ struct StickerStudioApp: App {
     private let repository: PackRepository = InMemoryPackRepository.sample
     @State private var path: [Route] = []
 
-    enum Route: Hashable { case gallery }
+    enum Route: Hashable { case gallery, createPack }
 
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $path) {
-                PackListView(repository: repository, onOpenGallery: galleryAction)
+                PackListView(repository: repository, onCreate: { path.append(.createPack) }, onOpenGallery: galleryAction)
                     .navigationDestination(for: Route.self) { route in
                         switch route {
                         case .gallery: DesignSystemGallery()
+                        case .createPack: PackFormView(repository: repository) { path.removeLast() }
                         }
                     }
             }
