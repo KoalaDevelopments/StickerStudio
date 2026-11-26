@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A10000000000000000000010 /* StickerDomain in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000011 /* StickerDomain */; };
+		A10000000000000000000015 /* KODevUI in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000014 /* KODevUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A10000000000000000000010 /* StickerDomain in Frameworks */,
+				A10000000000000000000015 /* KODevUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +69,7 @@
 			name = StickerStudio;
 			packageProductDependencies = (
 				A10000000000000000000011 /* StickerDomain */,
+				A10000000000000000000014 /* KODevUI */,
 			);
 			productName = StickerStudio;
 			productReference = A10000000000000000000020 /* StickerStudio.app */;
@@ -94,6 +97,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				A10000000000000000000012 /* XCLocalSwiftPackageReference "StickerKit" */,
+				A10000000000000000000013 /* XCLocalSwiftPackageReference "KODevUI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A10000000000000000000051 /* Products */;
@@ -225,12 +229,20 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = StickerKit;
 		};
+		A10000000000000000000013 /* XCLocalSwiftPackageReference "KODevUI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = KODevUI;
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		A10000000000000000000011 /* StickerDomain */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = StickerDomain;
+		};
+		A10000000000000000000014 /* KODevUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KODevUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

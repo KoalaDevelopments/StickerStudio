@@ -8,6 +8,6 @@ android/**/build/
 
 # iOS
 xcuserdata/
-ios/StickerKit/.build/
-ios/StickerKit/.swiftpm/
+ios/*/.build/
+ios/*/.swiftpm/
 *.xcworkspace/xcuserdata/
