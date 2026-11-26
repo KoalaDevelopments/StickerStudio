@@ -102,13 +102,7 @@ private struct PackRow: View {
         .accessibilityElement(children: .combine)
     }
 
-    @ViewBuilder private var status: some View {
-        switch PackStatus(pack) {
-        case .draft: KODevTag("Rascunho")
-        case .needsFixes: KODevTag("Corrigir", tone: .danger)
-        case .ready: KODevTag("Pronto", tone: .success)
-        }
-    }
+    private var status: some View { PackStatusTag(status: PackStatus(pack)) }
 }
 
 #Preview("Com packs") {

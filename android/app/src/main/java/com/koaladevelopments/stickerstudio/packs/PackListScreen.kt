@@ -28,7 +28,6 @@ import com.koaladevelopments.kodevui.KODevIconButton
 import com.koaladevelopments.kodevui.KODevIcons
 import com.koaladevelopments.kodevui.KODevSpace
 import com.koaladevelopments.kodevui.KODevTag
-import com.koaladevelopments.kodevui.KODevTagTone
 import com.koaladevelopments.kodevui.KODevTheme
 import com.koaladevelopments.kodevui.KODevType
 import com.koaladevelopments.stickerstudio.domain.PackKind
@@ -111,11 +110,7 @@ private fun PackRow(pack: StickerPack, onClick: () -> Unit) {
         Column(verticalArrangement = Arrangement.spacedBy(KODevSpace.space2)) {
             Row(horizontalArrangement = Arrangement.spacedBy(KODevSpace.space2)) {
                 KODevTag(if (pack.kind == PackKind.ANIMATED) "Animado" else "Estático")
-                when (PackStatus.of(pack)) {
-                    PackStatus.Draft -> KODevTag("Rascunho")
-                    PackStatus.NeedsFixes -> KODevTag("Corrigir", tone = KODevTagTone.Danger)
-                    PackStatus.Ready -> KODevTag("Pronto", tone = KODevTagTone.Success)
-                }
+                PackStatusTag(PackStatus.of(pack))
             }
             Text(pack.name, style = KODevType.title, maxLines = 2, overflow = TextOverflow.Ellipsis)
             Text(
