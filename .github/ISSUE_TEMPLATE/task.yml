@@ -1,0 +1,39 @@
+name: Task
+description: Feature, engine or tooling work for the apps
+labels: [enhancement]
+projects: [KoalaDevelopments/2]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options: [UI, Domain, Media, Persistence, Export (WhatsApp), Tooling / CI, Docs]
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options: [Both, iOS, Android]
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What should exist when this is done, and why.
+    validations:
+      required: true
+  - type: input
+    id: reference
+    attributes:
+      label: Scope reference
+      description: Section of docs/escopo-mvp.md this implements (e.g. 2.3, 4.2).
+  - type: textarea
+    id: done
+    attributes:
+      label: Acceptance criteria
+      value: |
+        - [ ] Works on the platforms above, or the divergence is documented
+        - [ ] Follows the WhatsApp rules in docs/escopo-mvp.md section 4
+        - [ ] Tests added, CI green
