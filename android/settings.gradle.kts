@@ -14,4 +14,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "StickerStudio"
-include(":app", ":core:domain")
+include(":app", ":core:domain", ":core:media")
